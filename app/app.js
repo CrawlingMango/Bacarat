@@ -26,6 +26,18 @@ class Bacarat extends React.Component {
         return playerPoints < bankerPoints ? true : false;
     }
 
+    addMoneyToPlayer = () => {
+        this.setState({
+            money: this.state.money + this.state.bet
+        })
+    }
+
+    subtractMoneyToPlayer = () => {
+        this.setState({
+            money: this.state.money - this.state.bet
+        })
+    }
+
     getTotalCardValue = (card1, card2) => {
 
         var result = 0;
@@ -61,35 +73,42 @@ class Bacarat extends React.Component {
         const bankerPointsDiff = Math.abs(bankerTotalCardValue - 9);
 
         if (this.state.batType === 2) {
-
             // bet on player
-
             if (this.isPlayerWin(playerPointsDiff, bankerPointsDiff)) {
-                this.setState({
-                    money: this.state.money + this.state.bet
-                })
+                this.addMoneyToPlayer();
             }
             else if (!this.isPlayerWin(playerPointsDiff, bankerPointsDiff)) {
-                this.setState({
-                    money: this.state.money - this.state.bet
-                })
+                this.subtractMoneyToPlayer();
             }
-
+        } else if (this.state.batType === 3) {
+            // bet that player and banker points will be tied
+            if (playerPointsDiff === bankerPointsDiff) {
+                this.addMoneyToPlayer();
+            } else {
+                this.subtractMoneyToPlayer();
+            }
         } else if (this.state.batType === 4) {
-
             // bet on banker
-
             if (this.isPlayerWin(playerPointsDiff, bankerPointsDiff)) {
-                this.setState({
-                    money: this.state.money - this.state.bet
-                })
+                this.subtractMoneyToPlayer();
             }
             else if (!this.isPlayerWin(playerPointsDiff, bankerPointsDiff)) {
-                this.setState({
-                    money: this.state.money + this.state.bet
-                })
+                this.addMoneyToPlayer();
             }
-        } else {
+        } else if (this.state.batType === 1) {
+            if (this.state.player.cards[0] === this.state.player.cards[1]) {
+                this.addMoneyToPlayer();
+            } else {
+                this.subtractMoneyToPlayer();
+            }
+        } else if (this.state.batType === 5) {
+            if (this.state.banker.cards[0] === this.state.banker.cards[1]) {
+                this.addMoneyToPlayer();
+            } else {
+                this.subtractMoneyToPlayer();
+            }
+        }
+        else {
             // show error no bet type selected
         }
     }
@@ -151,11 +170,11 @@ class Bacarat extends React.Component {
                 </div>
                 <br></br>
                 <div className="options">
-                    {/* <input type="radio" onChange={this.handleOnSelectBetType} id="player-pair" name="bet" value="1"></input> Player Pair<br></br> */}
+                    <input type="radio" onChange={this.handleOnSelectBetType} id="player-pair" name="bet" value="1"></input> Player Pair<br></br>
                     <input type="radio" onChange={this.handleOnSelectBetType} id="player" name="bet" value="2"></input> Player<br></br>
-                    {/* <input type="radio" onChange={this.handleOnSelectBetType} id="tie" name="bet" value="3"></input> Tie<br></br> */}
+                    <input type="radio" onChange={this.handleOnSelectBetType} id="tie" name="bet" value="3"></input> Tie<br></br>
                     <input type="radio" onChange={this.handleOnSelectBetType} id="banker" name="bet" value="4"></input> Banker<br></br>
-                    {/* <input type="radio" onChange={this.handleOnSelectBetType} id="banker-pair" name="bet" value="5"></input> Banker Pair<br></br>                     */}
+                    <input type="radio" onChange={this.handleOnSelectBetType} id="banker-pair" name="bet" value="5"></input> Banker Pair<br></br>                    
                 </div>
                 <br></br>
                 <div className="bets">
