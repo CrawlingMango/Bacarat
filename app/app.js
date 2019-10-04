@@ -15,6 +15,7 @@ class Bacarat extends React.Component {
             banker: {
                 cards: [0,0,0],
             },
+            winner: ''
         };        
     }
 
@@ -36,6 +37,16 @@ class Bacarat extends React.Component {
         this.setState({
             money: this.state.money - this.state.bet
         })
+    }
+
+    playerWins = () => {
+        this.setState({ winner: 'Player wins!' });
+        this.addMoneyToPlayer();
+    }
+
+    bankerWins = () => {
+        this.setState({ winner: 'Banker wins!' });
+        this.subtractMoneyToPlayer();
     }
 
     getTotalCardValue = (card1, card2) => {
@@ -75,37 +86,37 @@ class Bacarat extends React.Component {
         if (this.state.batType === 2) {
             // bet on player
             if (this.isPlayerWin(playerPointsDiff, bankerPointsDiff)) {
-                this.addMoneyToPlayer();
+                this.playerWins();
             }
             else if (!this.isPlayerWin(playerPointsDiff, bankerPointsDiff)) {
-                this.subtractMoneyToPlayer();
+                this.bankerWins();
             }
         } else if (this.state.batType === 3) {
             // bet that player and banker points will be tied
             if (playerPointsDiff === bankerPointsDiff) {
-                this.addMoneyToPlayer();
+                this.playerWins();
             } else {
-                this.subtractMoneyToPlayer();
+                this.bankerWins();
             }
         } else if (this.state.batType === 4) {
             // bet on banker
             if (this.isPlayerWin(playerPointsDiff, bankerPointsDiff)) {
-                this.subtractMoneyToPlayer();
+                this.bankerWins();
             }
             else if (!this.isPlayerWin(playerPointsDiff, bankerPointsDiff)) {
-                this.addMoneyToPlayer();
+                this.playerWins();
             }
         } else if (this.state.batType === 1) {
             if (this.state.player.cards[0] === this.state.player.cards[1]) {
-                this.addMoneyToPlayer();
+                this.playerWins();
             } else {
-                this.subtractMoneyToPlayer();
+                this.bankerWins();
             }
         } else if (this.state.batType === 5) {
             if (this.state.banker.cards[0] === this.state.banker.cards[1]) {
-                this.addMoneyToPlayer();
+                this.playerWins();
             } else {
-                this.subtractMoneyToPlayer();
+                this.bankerWins();
             }
         }
         else {
@@ -149,6 +160,7 @@ class Bacarat extends React.Component {
                 <div className="player-money">
                     <b>Player Money</b> <span>${this.state.money}</span><br></br>
                     <b>Player Bet</b> <span>${this.state.bet}</span><br></br>
+                    <p>{this.state.winner}</p>
                 </div>
                 <div className="show-cards">
                     <div className="player">
