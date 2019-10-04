@@ -7,5 +7,13 @@ window.onload = () => {
   root.id = 'react-root';
   document.body.appendChild(root);
 
-  render(<Button text="Hello, World!" />, root);
+  const state = {
+    message: 'Hello World!'
+  }
+
+  const clickHandler = () => {
+    console.log('Was clicked');
+  }
+
+  render(<Button text={state.message} onClick={clickHandler}></Button>, root);
 };

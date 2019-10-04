@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var sass = require('gulp-sass');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
@@ -12,7 +13,7 @@ var babelify = require('babelify');
 var BUILD_DIR = 'build/';
 
 function compile (watch) {
-  var bundler = browserify('app/index.jsx', {
+  var bundler = browserify('app/index.js', {
     debug: true, // write own sourcemaps
     extensions: [ '.js', '.jsx', '.json' ]
   });
@@ -54,6 +55,12 @@ function compile (watch) {
   return bundle();
 }
 
+gulp.task('style', function() {
+  return gulp.src('app/styles.scss')
+    .pipe(sass())
+    .pipe(gulp.dest(BUILD_DIR))
+});
+
 gulp.task('js', function() {
   return compile();
 });
@@ -63,7 +70,7 @@ gulp.task('html', function() {
     .pipe(gulp.dest(BUILD_DIR));
 });
 
-gulp.task('build', gulp.series('js', 'html'));
+gulp.task('build', gulp.series('js', 'html', 'style'));
 
 gulp.task('webserver', function() {
   return gulp.src(BUILD_DIR)
