@@ -79,6 +79,8 @@ gulp.task('webserver', function() {
     }));
 });
 
+gulp.task('serve', gulp.series('build', 'webserver'));
+
 gulp.task('watch:js', function() {
   return compile(true);
 })
