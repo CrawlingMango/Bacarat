@@ -9,6 +9,7 @@ var watchify = require('watchify');
 var pathmodify = require('pathmodify');
 var uglify = require('gulp-uglify');
 var babelify = require('babelify');
+var jasmine = require('gulp-jasmine');
 
 var BUILD_DIR = 'build/';
 
@@ -79,8 +80,6 @@ gulp.task('webserver', function() {
     }));
 });
 
-gulp.task('serve', gulp.series('build', 'webserver'));
-
 gulp.task('watch:js', function() {
   return compile(true);
 })
@@ -90,3 +89,10 @@ gulp.task('watch:html', function() {
 });
 
 gulp.watch('watch', gulp.series('webserver', 'watch:js', 'watch:html'));
+
+gulp.task('serve', gulp.series('build', 'webserver'));
+
+gulp.task('test', function() {
+  return gulp.src('tests/**.js')
+    .pipe(jasmine());
+});
