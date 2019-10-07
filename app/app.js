@@ -32,10 +32,10 @@ const App = () => {
     return (
         <div className="main">
             <h1>Bacarat</h1>
-            <div className="player-details">
-                <b>Player Money:</b> <span>$ {money}</span> <br></br>
-                <b>Player Bet: </b> <span>$ {bet}</span> <br></br>
-            </div>
+            <PlayerDetails
+                 money={money}
+                 bet={bet}
+                />
             <br></br>
             <div className="bet-amount">
                 <button onClick={() => handleAddBet(1)} type="button" className="bet bet-1">1</button>
@@ -54,5 +54,14 @@ const App = () => {
         </div>
     );
 };
+
+const PlayerDetails = (props) => {
+    return (
+        <div className="player-details">
+            <b>Player Money:</b> <span>$ {props.money}</span> <br></br>
+            <b>Player Bet: </b> <span>$ {props.bet}</span> <br></br>
+        </div>
+    ) 
+}
 
 export default App;
