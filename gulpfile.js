@@ -88,10 +88,20 @@ gulp.task('watch:html', function() {
   return gulp.watch(['app/**/*.html'], ['html']);
 });
 
+/**
+ * compiles the app whenver there is a file change
+ */
 gulp.watch('watch', gulp.series('webserver', 'watch:js', 'watch:html'));
 
+/**
+ * builds the app and host it on a webserver
+ * url: localhost:8000
+ */
 gulp.task('serve', gulp.series('build', 'webserver'));
 
+/**
+ * runs all the spec file under the tests folder
+ */
 gulp.task('test', function() {
   return gulp.src('tests/**.js')
     .pipe(jasmine());
