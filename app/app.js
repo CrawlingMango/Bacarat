@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import { getBetTypeDisplay, randomCard } from './common/helper';
+import React, { useState, useEffect } from 'react';
+import { getBetTypeDisplay, randomCard, getCardTotal, getResult, getWinner, playerDrawThirdCard, bankerDrawThirdCard } from './common/helper';
 import PlayerDetails from './components/player-details';
+import Cards from './components/cards';
+import { MESSAGES } from './common/constants';
 
 const App = () => {
 
@@ -9,20 +11,65 @@ const App = () => {
     const [betType, setBetType] = useState(0);
     const [playerCards, setPlayerCards] = useState([0,0,0]);
     const [bankerCards, setBankerCards] = useState([0,0,0]);
+    const [playerTotal, setPlayerTotal] = useState(0);
+    const [bankerTotal, setBankerTotal] = useState(0);
+    const [winner, setWinner] = useState('');
+    const [result, setResult] = useState('');
 
     const handleDeal = () => {    
 
+        setPlayerTotal(0);
+        setBankerTotal(0);        
+
         setPlayerCards([randomCard(), randomCard(), randomCard()]);
         setBankerCards([randomCard(), randomCard(), randomCard()]);
-    
+            
     };
+
+    useEffect(() => setPlayerTotal(currentPlayerTotal => {
+
+        const total = currentPlayerTotal + getCardTotal(playerCards[0], playerCards[1]);
+
+        // check if additional cards needs to be drawn;
+        if (playerDrawThirdCard(total)) {
+            // do something
+        }
+        
+        return total;
+
+    }), [playerCards]);
+
+    useEffect(() => setBankerTotal(currentBankerTotal => {
+
+        const total = currentBankerTotal + getCardTotal(bankerCards[0], bankerCards[1]);
+
+        // check if additional cards needs to be drawn;
+        if (bankerDrawThirdCard(total)) {
+            // do something
+        }
+
+        return total;
+
+    }), [bankerCards]);
+
+    useEffect(() => setResult(() => {    
+
+        return getResult(playerTotal, bankerTotal);
+
+    }), [playerTotal, bankerTotal]);
+
+    useEffect(() => setWinner(() => {
+
+        return getWinner(result, betType);
+
+    }), [result]);
 
     const handleAddBet = (val) => {        
 
         const totalBet = bet + val;
 
         if (totalBet > money) {
-            alert('Insufficient Funds!');
+            alert(MESSAGES.INSUFFICIENT_FUNDS);
         } else {
             setBet(currentBet => currentBet + val);
         }
@@ -35,27 +82,20 @@ const App = () => {
     return (
         <div className="main">
             <h1>Bacarat</h1>
-            <PlayerDetails money={money} bet={bet} betType={betType}/>
+                <PlayerDetails money={money} bet={bet} betType={betType}/>
             <br></br>
             <div className="cards">
-                <div className="cards-player">
-                    <h5>Player Cards</h5>
-                    <div className="card">
-                        {playerCards[0]}
-                    </div>
-                    <div className="card">
-                        {playerCards[1]}
-                    </div>                 
-                </div>
-                <div className="cards-banker">               
-                    <h5>Banker Cards</h5>
-                    <div className="card">
-                        {bankerCards[0]}
-                    </div>
-                    <div className="card">
-                        {bankerCards[1]}
-                    </div>                                        
-                </div>
+                <Cards title={'Player'} cards={playerCards} total={playerTotal}/>
+                <Cards title={'Banker'} cards={bankerCards} total={bankerTotal}/>
+            </div>
+            <br></br>
+            <div className="winner">
+                <p>
+                    <b>Result:</b> <span> {result}</span>
+                </p>
+                <p>
+                    <b>Winner:</b> <span> {winner}</span>
+                </p> 
             </div>
             <br></br>
             <div className="bet-type">

@@ -5,3 +5,12 @@ export const BET_TYPE = {
     BANKER: 'Banker',
     BANKER_PAIR: 'Banker Pair'
 }
+
+export const USER = {
+    PLAYER: 'Player',
+    BANKER: 'Banker'
+}
+
+export const MESSAGES = {
+    INSUFFICIENT_FUNDS: 'Insufficient Funds!'
+}
