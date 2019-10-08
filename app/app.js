@@ -24,8 +24,8 @@ const App = () => {
         setPlayerCards(_newPlayerCards);
         setBankerCards(_newBankerCards);
         
-        const _playerTotal = getCardTotal(_newPlayerCards[0], _newPlayerCards[1]);
-        const _bankerTotal = getCardTotal(_newBankerCards[0], _newBankerCards[1]);
+        const _playerTotal = getCardTotalPlayer(_newPlayerCards[0], _newPlayerCards[1], _newPlayerCards[2]);
+        const _bankerTotal = getCardTotalBanker(_newBankerCards[0], _newBankerCards[1], _newBankerCards[2]);
 
         setPlayerTotal(_playerTotal);
         setBankerTotal(_bankerTotal);
@@ -52,61 +52,27 @@ const App = () => {
 
     };
 
-    // useEffect(() => setPlayerTotal(currentPlayerTotal => {
+    const getCardTotalPlayer = (card1, card2, card3) => {
 
-    //     const total = currentPlayerTotal + getCardTotal(playerCards[0], playerCards[1]);
+        const total = getCardTotal(card1, card2);
 
-    //     // check if additional cards needs to be drawn;
-    //     if (playerDrawThirdCard(total)) {
-    //         // do something
-    //     }
-        
-    //     return total;
+        if (playerDrawThirdCard(total)) {
+            // draw third card and re-compute total
+        }
 
-    // }), [playerCards]);
+        return total;
+    }
 
-    // useEffect(() => setBankerTotal(currentBankerTotal => {
+    const getCardTotalBanker = (card1, card2, card3) => {
 
-    //     const total = currentBankerTotal + getCardTotal(bankerCards[0], bankerCards[1]);
+        const total = getCardTotal(card1, card2);
 
-    //     // check if additional cards needs to be drawn;
-    //     if (bankerDrawThirdCard(total)) {
-    //         // do something
-    //     }
+        if (bankerDrawThirdCard(total)) {
+            // draw third card and re-compute total
+        }
 
-    //     return total;
-
-    // }), [bankerCards]);
-
-    // useEffect(() => setResult(() => {    
-
-    //     return getResult(playerTotal, bankerTotal);
-
-    // }), [playerTotal, bankerTotal]);
-
-    // useEffect(() => setWinner(() => {
-
-    //     return getWinner(result, betType);
-
-    // }), [result]);
-
-    // useEffect(() => setMoney(() => {
-
-    //     console.log({winner, money, bet});
-
-    //     if (winner === '') {
-    //         return money;
-    //     }
-
-    //     if (winner === USER.PLAYER) {
-    //         return money + bet;
-    //     } 
-        
-    //     if (winner === USER.BANKER) {
-    //         return money - bet;
-    //     }
-
-    // }), [winner]);
+        return total;
+    }
 
     const handleAddBet = (val) => {        
 
