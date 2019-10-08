@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
-
-const BET_TYPE = {
-    PLAYER_PAIR: 'Player Pair',
-    PLAYER: 'Player',
-    TIE: 'Tie',
-    BANKER: 'Banker',
-    BANKER_PAIR: 'Banker Pair'
-}
+import { getBetTypeDisplay } from './common/helper';
+import PlayerDetails from './components/player-details';
 
 const App = () => {
 
@@ -67,37 +61,6 @@ const App = () => {
             </div>
         </div>
     )
-}
-
-const PlayerDetails = (props) => {    
-    return (
-        <div className="player-details">
-            <b>Player Money:</b> <span>$ {props.money}</span> <br></br>
-            <b>Player Bet: </b> <span>$ {props.bet}</span> <br></br>
-            <b>Bet Type: </b> <span>{props.betType}</span><br></br>
-        </div>
-    ) 
-}
-
-// helper
-
-const getBetTypeDisplay = (betType) => {
-
-    switch(betType) {
-        case 1:
-            return BET_TYPE.PLAYER_PAIR
-        case 2:
-            return BET_TYPE.PLAYER
-        case 3:
-            return BET_TYPE.TIE
-        case 4:
-            return BET_TYPE.BANKER
-        case 5:
-            return BET_TYPE.BANKER_PAIR
-        default:
-            return 'NONE'
-    }
-
 }
 
 export default App;
