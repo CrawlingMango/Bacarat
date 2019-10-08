@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { getBetTypeDisplay, randomCard, getCardTotal, getResult, getWinner, isPlayerStood, isBankerStood } from './common/helper';
+import { MESSAGES, USER } from './common/constants';
 import PlayerDetails from './components/player-details';
 import Cards from './components/cards';
-import { MESSAGES, USER } from './common/constants';
+import Histories from './components/histories';
 
 const App = () => {
 
@@ -17,7 +18,7 @@ const App = () => {
     const [result, setResult] = useState('');
     const [playerStood, setIsPlayerStood] = useState(true);
     const [bankerStood, setIsBankerStood] = useState(true);
-    const [history, setHistory] = useState([{number: 0, pl: 0, result: ''}, {number: 0, pl: 0, result: ''}]);
+    const [histories, setHistories] = useState([{key: 1, pl: 0, result: 'Player'}, {key: 2, pl: 0, result: 'Banker'}]);
 
     const handleDeal = () => {            
         
@@ -147,6 +148,20 @@ const App = () => {
         setIsPlayerStood(true);
     }
 
+    const listHistories = () => {
+
+        return histories.map(h => {
+                            
+            return (
+                <tr>  
+                    <td>{h.number}</td>
+                    <td>{h.pl}</td>
+                    <td>{h.result}</td>
+                </tr>
+            )                        
+        })
+    }
+
     return (
         <div className="main">
             <h1>Bacarat</h1>
@@ -190,28 +205,7 @@ const App = () => {
                 <button className="btn-place-bet" onClick={handleDeal} type="button">Deal!</button>
             </div>
             <div className="history">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>P/L</th>
-                            <th>Result</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                +10
-                            </td>
-                            <td>
-                                Player
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <Histories histories={histories} />
             </div>
         </div>
     )
