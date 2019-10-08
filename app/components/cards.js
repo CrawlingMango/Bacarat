@@ -13,9 +13,12 @@ const Cards = (props) => {
             <div className="card">
                 {props.cards[1]}
             </div>
-            {/* <div className="card">
-                {playerCards[2]}
-            </div> */}          
+            { 
+                !props.isStood ? 
+                  <div className="card">
+                    {props.cards[2]} <span> Draw third Card! </span>
+                  </div> : null
+            }    
         </div>
     )
 }

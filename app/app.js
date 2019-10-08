@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { getBetTypeDisplay, randomCard, getCardTotal, getResult, getWinner, playerDrawThirdCard, bankerDrawThirdCard } from './common/helper';
+import React, { useState } from 'react';
+import { getBetTypeDisplay, randomCard, getCardTotal, getResult, getWinner, isPlayerStood, isBankerStood } from './common/helper';
 import PlayerDetails from './components/player-details';
 import Cards from './components/cards';
 import { MESSAGES, USER } from './common/constants';
@@ -15,9 +15,14 @@ const App = () => {
     const [bankerTotal, setBankerTotal] = useState(0);
     const [winner, setWinner] = useState('');
     const [result, setResult] = useState('');
+    const [playerStood, setIsPlayerStood] = useState(true);
+    const [bankerStood, setIsBankerStood] = useState(true);
 
     const handleDeal = () => {            
         
+        setIsPlayerStood(true);
+        setIsPlayerStood(true);
+
         const _newPlayerCards = [randomCard(), randomCard(), randomCard()];
         const _newBankerCards = [randomCard(), randomCard(), randomCard()];
         
@@ -25,7 +30,10 @@ const App = () => {
         setBankerCards(_newBankerCards);
         
         const _playerTotal = getCardTotalPlayer(_newPlayerCards[0], _newPlayerCards[1], _newPlayerCards[2]);
-        const _bankerTotal = getCardTotalBanker(_newBankerCards[0], _newBankerCards[1], _newBankerCards[2]);
+
+        const _isPlayerStood = isPlayerStood(getCardTotal(_newPlayerCards[0], _newPlayerCards[1]));
+
+        const _bankerTotal = getCardTotalBanker(_newBankerCards[0], _newBankerCards[1], _newBankerCards[2], _isPlayerStood);
 
         setPlayerTotal(_playerTotal);
         setBankerTotal(_bankerTotal);
@@ -52,27 +60,11 @@ const App = () => {
 
     };
 
-    const getCardTotalPlayer = (card1, card2, card3) => {
+    const handleOnSelectBetType = (e) => setBetType(getBetTypeDisplay(Number(e.target.value)));
 
-        const total = getCardTotal(card1, card2);
+    const handleClearBet = () => setBet(currentBet => currentBet - currentBet);
 
-        if (playerDrawThirdCard(total)) {
-            // draw third card and re-compute total
-        }
-
-        return total;
-    }
-
-    const getCardTotalBanker = (card1, card2, card3) => {
-
-        const total = getCardTotal(card1, card2);
-
-        if (bankerDrawThirdCard(total)) {
-            // draw third card and re-compute total
-        }
-
-        return total;
-    }
+    const handleReset = () => reset();
 
     const handleAddBet = (val) => {        
 
@@ -85,9 +77,48 @@ const App = () => {
         }
     }
 
-    const handlClearBet = () => setBet(currentBet => currentBet - currentBet);
+    const getCardTotalPlayer = (card1, card2, card3) => {
 
-    const handleOnSelectBetType = (e) => setBetType(getBetTypeDisplay(Number(e.target.value)));
+        let total = getCardTotal(card1, card2);
+
+        if (!isPlayerStood(total)) {
+            setIsPlayerStood(false);
+            total = getCardTotal(total, card3);
+        }
+
+        return total;
+    }
+
+    const getCardTotalBanker = (card1, card2, card3, isPlayerStood) => {
+
+        let total = getCardTotal(card1, card2);
+
+        console.log({isPlayerStood});
+
+        if (isPlayerStood) {
+            // implement rules as the player
+            if (!isBankerStood(total)) {
+                setIsBankerStood(false);
+                total = getCardTotal(total, card3);
+            }
+        }
+
+        return total;
+    }
+
+    const reset = () => {
+        setBet(0);
+        setMoney(2000);
+        setBetType(0);
+        setPlayerCards([0, 0, 0]);
+        setBankerCards([0, 0, 0]);
+        setPlayerTotal(0);
+        setBankerTotal(0);
+        setWinner('');
+        setResult('');
+        setIsPlayerStood(true);
+        setIsPlayerStood(true);
+    }
 
     return (
         <div className="main">
@@ -95,8 +126,8 @@ const App = () => {
                 <PlayerDetails money={money} bet={bet} betType={betType}/>
             <br></br>
             <div className="cards">
-                <Cards title={'Player'} cards={playerCards} total={playerTotal}/>
-                <Cards title={'Banker'} cards={bankerCards} total={bankerTotal}/>
+                <Cards title={'Player'} cards={playerCards} total={playerTotal} isStood={playerStood}/>
+                <Cards title={'Banker'} cards={bankerCards} total={bankerTotal} isStood={bankerStood}/>
             </div>
             <br></br>
             <div className="winner">
@@ -127,7 +158,8 @@ const App = () => {
             </div>
             <br></br>
             <div className="place-bet">
-            <button className="btn-place-bet" onClick={handlClearBet} type="button">Clear Bet</button>
+                <button className="btn-reset" onClick={handleReset} type="button">Reset</button>
+                <button className="btn-clear-bet" onClick={handleClearBet} type="button">Clear Bet</button>
                 <button className="btn-place-bet" onClick={handleDeal} type="button">Deal!</button>
             </div>
         </div>

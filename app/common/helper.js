@@ -64,12 +64,12 @@ export const getWinner = (result, betType) => {
     return result === betType ? USER.PLAYER : USER.BANKER;
 }
 
-export const playerDrawThirdCard = (cardTotal) => {
-    return false;
+export const isPlayerStood = (cardTotal) => {
+    return cardTotal <= 5 ? false : true;
 }
 
-export const bankerDrawThirdCard = (cardTotal) => {
-    return false;
+export const isBankerStood = (cardTotal) => {
+    return cardTotal <= 5 ? false : true;
 }
 
 // private methods
