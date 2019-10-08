@@ -18,3 +18,13 @@ export const getBetTypeDisplay = (betType) => {
     }
 
 }
+
+export const randomCard = () => {
+    return randomNumber();
+}
+
+// private methods
+
+const randomNumber = () => {
+    return Math.floor(Math.random() * 10);
+}

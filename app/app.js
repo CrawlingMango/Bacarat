@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getBetTypeDisplay } from './common/helper';
+import { getBetTypeDisplay, randomCard } from './common/helper';
 import PlayerDetails from './components/player-details';
 
 const App = () => {
@@ -7,14 +7,14 @@ const App = () => {
     const [money, setMoney] = useState(2000);
     const [bet, setBet] = useState(0);
     const [betType, setBetType] = useState(0);
+    const [playerCards, setPlayerCards] = useState([0,0,0]);
+    const [bankerCards, setBankerCards] = useState([0,0,0]);
 
     const handleDeal = () => {    
 
-        // deal 2 card for player
-        // deal 2 card for bankder
-
-        alert('Deal!');
-        
+        setPlayerCards([randomCard(), randomCard(), randomCard()]);
+        setBankerCards([randomCard(), randomCard(), randomCard()]);
+    
     };
 
     const handleAddBet = (val) => {        
@@ -36,6 +36,27 @@ const App = () => {
         <div className="main">
             <h1>Bacarat</h1>
             <PlayerDetails money={money} bet={bet} betType={betType}/>
+            <br></br>
+            <div className="cards">
+                <div className="cards-player">
+                    <h5>Player Cards</h5>
+                    <div className="card">
+                        {playerCards[0]}
+                    </div>
+                    <div className="card">
+                        {playerCards[1]}
+                    </div>                 
+                </div>
+                <div className="cards-banker">               
+                    <h5>Banker Cards</h5>
+                    <div className="card">
+                        {bankerCards[0]}
+                    </div>
+                    <div className="card">
+                        {bankerCards[1]}
+                    </div>                                        
+                </div>
+            </div>
             <br></br>
             <div className="bet-type">
                 <input type="radio" onChange={(e) => handleOnSelectBetType(e)} id="player-pair" name="bet" value="1"></input> <label htmlFor="player-pair">Player Pair</label><br></br>
