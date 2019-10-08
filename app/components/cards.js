@@ -3,7 +3,10 @@ import React from 'react';
 const Cards = (props) => {
     return (
         <div>
-            <h4>{props.title} Cards</h4>
+            <div className="points">
+                <b>{props.title} Cards</b> <br></br>
+                <b>Total:</b> { props.total } <br></br>    
+            </div>     
             <div className="card">
                 {props.cards[0]}
             </div>
@@ -12,10 +15,7 @@ const Cards = (props) => {
             </div>
             {/* <div className="card">
                 {playerCards[2]}
-            </div> */}
-            <div className="points">
-                <span><b>Total:</b> { props.total }</span>    
-            </div>               
+            </div> */}          
         </div>
     )
 }

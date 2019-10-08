@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getBetTypeDisplay, randomCard, getCardTotal, getResult, getWinner, playerDrawThirdCard, bankerDrawThirdCard } from './common/helper';
 import PlayerDetails from './components/player-details';
 import Cards from './components/cards';
-import { MESSAGES } from './common/constants';
+import { MESSAGES, USER } from './common/constants';
 
 const App = () => {
 
@@ -16,53 +16,97 @@ const App = () => {
     const [winner, setWinner] = useState('');
     const [result, setResult] = useState('');
 
-    const handleDeal = () => {    
+    const handleDeal = () => {            
+        
+        const _newPlayerCards = [randomCard(), randomCard(), randomCard()];
+        const _newBankerCards = [randomCard(), randomCard(), randomCard()];
+        
+        setPlayerCards(_newPlayerCards);
+        setBankerCards(_newBankerCards);
+        
+        const _playerTotal = getCardTotal(_newPlayerCards[0], _newPlayerCards[1]);
+        const _bankerTotal = getCardTotal(_newBankerCards[0], _newBankerCards[1]);
 
-        setPlayerTotal(0);
-        setBankerTotal(0);        
+        setPlayerTotal(_playerTotal);
+        setBankerTotal(_bankerTotal);
 
-        setPlayerCards([randomCard(), randomCard(), randomCard()]);
-        setBankerCards([randomCard(), randomCard(), randomCard()]);
+        const _result = getResult(_playerTotal, _bankerTotal);
+        const _winner = getWinner(_result, betType);
+
+        setResult(_result);
+        setWinner(_winner);
+
+        setMoney(currentMoney => {
+
+            if (_winner === USER.PLAYER) {
+                return currentMoney + bet;
+            } 
             
+            if (_winner === USER.BANKER) {
+                return currentMoney - bet;
+            }  
+
+            return currentMoney;
+
+        });
+
     };
 
-    useEffect(() => setPlayerTotal(currentPlayerTotal => {
+    // useEffect(() => setPlayerTotal(currentPlayerTotal => {
 
-        const total = currentPlayerTotal + getCardTotal(playerCards[0], playerCards[1]);
+    //     const total = currentPlayerTotal + getCardTotal(playerCards[0], playerCards[1]);
 
-        // check if additional cards needs to be drawn;
-        if (playerDrawThirdCard(total)) {
-            // do something
-        }
+    //     // check if additional cards needs to be drawn;
+    //     if (playerDrawThirdCard(total)) {
+    //         // do something
+    //     }
         
-        return total;
+    //     return total;
 
-    }), [playerCards]);
+    // }), [playerCards]);
 
-    useEffect(() => setBankerTotal(currentBankerTotal => {
+    // useEffect(() => setBankerTotal(currentBankerTotal => {
 
-        const total = currentBankerTotal + getCardTotal(bankerCards[0], bankerCards[1]);
+    //     const total = currentBankerTotal + getCardTotal(bankerCards[0], bankerCards[1]);
 
-        // check if additional cards needs to be drawn;
-        if (bankerDrawThirdCard(total)) {
-            // do something
-        }
+    //     // check if additional cards needs to be drawn;
+    //     if (bankerDrawThirdCard(total)) {
+    //         // do something
+    //     }
 
-        return total;
+    //     return total;
 
-    }), [bankerCards]);
+    // }), [bankerCards]);
 
-    useEffect(() => setResult(() => {    
+    // useEffect(() => setResult(() => {    
 
-        return getResult(playerTotal, bankerTotal);
+    //     return getResult(playerTotal, bankerTotal);
 
-    }), [playerTotal, bankerTotal]);
+    // }), [playerTotal, bankerTotal]);
 
-    useEffect(() => setWinner(() => {
+    // useEffect(() => setWinner(() => {
 
-        return getWinner(result, betType);
+    //     return getWinner(result, betType);
 
-    }), [result]);
+    // }), [result]);
+
+    // useEffect(() => setMoney(() => {
+
+    //     console.log({winner, money, bet});
+
+    //     if (winner === '') {
+    //         return money;
+    //     }
+
+    //     if (winner === USER.PLAYER) {
+    //         return money + bet;
+    //     } 
+        
+    //     if (winner === USER.BANKER) {
+    //         return money - bet;
+    //     }
+
+    // }), [winner]);
 
     const handleAddBet = (val) => {        
 
