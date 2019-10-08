@@ -72,8 +72,50 @@ export const isPlayerStood = (cardTotal) => {
     return cardTotal <= 5 ? false : true;
 }
 
-export const isBankerStood = (cardTotal) => {
-    return cardTotal <= 5 ? false : true;
+export const isBankerStood = (cardTotal, isPlayerStood, pcardVal3) => {
+
+    if (isPlayerStood) {
+        
+        if (cardTotal <= 5) {
+            return false;
+        }
+
+    } else {
+
+        if (cardTotal <= 2) {
+            return false;
+        }
+
+        if (cardTotal === 3) {
+            const arr = [1, 2, 3, 4, 5, 6, 7, 9, 0];
+            if (arr.includes(pcardVal3)) {
+                return false;
+            }
+        }
+
+        if (cardTotal === 4) {
+            const arr = [2, 3, 4, 5, 6, 7];
+            if (arr.includes(pcardVal3)) {
+                return false;
+            }
+        }
+
+        if (cardTotal === 5) {
+            const arr = [4, 5, 6, 7];
+            if (arr.includes(pcardVal3)) {
+                return false;
+            }
+        }
+
+        if (cardTotal === 6) {
+            const arr = [6, 7];
+            if (arr.includes(pcardVal3)) {
+                return false;
+            }
+        }
+    }
+
+    return true;
 }
 
 // private methods

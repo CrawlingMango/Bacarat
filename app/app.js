@@ -33,12 +33,17 @@ const App = () => {
         
         const _playerTotal = getCardTotalPlayer(_newPlayerCards[0], _newPlayerCards[1], _newPlayerCards[2]);
 
-        const _isPlayerStood = isPlayerStood(getCardTotal(_newPlayerCards[0], _newPlayerCards[1]));
+        const _isPlayerStood = isPlayerStood(getCardTotal(_newPlayerCards[0].value, _newPlayerCards[1].value));
 
         const _bankerTotal = getCardTotalBanker(_newBankerCards[0], _newBankerCards[1], _newBankerCards[2], _isPlayerStood, _newPlayerCards[2]);
 
+        const _isBankerStood = isBankerStood(getCardTotal(_newBankerCards[0].value, _newBankerCards[1].value), _isPlayerStood, _newPlayerCards[2].value);
+
         setPlayerTotal(_playerTotal);
         setBankerTotal(_bankerTotal);
+
+        setIsPlayerStood(_isPlayerStood);
+        setIsBankerStood(_isBankerStood);
 
         const _result = getResult(_playerTotal, _bankerTotal);
         const _winner = getWinner(_result, betType);
@@ -62,15 +67,15 @@ const App = () => {
 
         // insert into history
         // not working
-        setHistories(currentHistory => {
+        // setHistories(currentHistory => {
 
-            const _key = currentHistory.length > 0 ? (currentHistory.length - 1) + 1 : 1;
-            const _pl = _winner === USER.PLAYER ? '+' + bet : '-' + bet;
-            const _result = result;
+        //     const _key = currentHistory.length > 0 ? (currentHistory.length - 1) + 1 : 1;
+        //     const _pl = _winner === USER.PLAYER ? '+' + bet : '-' + bet;
+        //     const _result = result;
             
-            return currentHistory.push({key: _key, pl: _pl, result: _result});
+        //     return currentHistory.push({key: _key, pl: _pl, result: _result});
 
-        });
+        // });
 
     };
 
@@ -96,7 +101,6 @@ const App = () => {
         let total = getCardTotal(card1.value, card2.value);
 
         if (!isPlayerStood(total)) {
-            setIsPlayerStood(false);
             total = getCardTotal(total, card3.value);
         }
 
@@ -107,40 +111,8 @@ const App = () => {
 
         let total = getCardTotal(card1.value, card2.value);
 
-        if (isPlayerStood) {
-            if (!isBankerStood(total)) {
-                setIsBankerStood(false);
-                total = getCardTotal(total, card3.value);
-            }
-        } else {
-            
-            if (total <= 2) {
-                total = getCardTotal(total, card3.value);
-            } else if (total === 3) {
-                const arr = [1, 2, 3, 4, 5, 6, 7, 9, 0];
-                if (arr.includes(pcard3.value)) {
-                    total = getCardTotal(total, card3.value);
-                }
-            } else if (total === 4) {
-                const arr = [2, 3, 4, 5, 6, 7];
-                if (arr.includes(pCard3.value)) {
-                    total = getCardTotal(total, card3.value);
-                }
-            } else if (total === 5) {
-                const arr = [4, 5, 6, 7];
-                if (arr.includes(pCard3.value)) {
-                    total = getCardTotal(total, card3.value);
-                }
-            } else if (total === 6) {
-                const arr = [6, 7];
-                if (arr.includes(pCard3.value)) {
-                    total = getCardTotal(total, card3.value);
-                }
-            } else if (total === 7) {
-                total = total;
-            } else {
-                total = total
-            }                                               
+        if (!isBankerStood(total, isPlayerStood, pCard3.value)) {
+            total = getCardTotal(total, card3.value);
         }
 
         return total;
