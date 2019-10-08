@@ -5,7 +5,8 @@ button {
   margin: 13px 0px; }
 
 .history {
-  max-width: 25%; }
+  max-width: 25%;
+  margin: 16px 0px; }
   .history table {
     font-family: arial, sans-serif;
     border-collapse: collapse;

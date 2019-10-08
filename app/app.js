@@ -18,7 +18,7 @@ const App = () => {
     const [result, setResult] = useState('');
     const [playerStood, setIsPlayerStood] = useState(true);
     const [bankerStood, setIsBankerStood] = useState(true);
-    const [histories, setHistories] = useState([{key: 1, pl: 0, result: 'Player'}, {key: 2, pl: 0, result: 'Banker'}]);
+    const [histories, setHistories] = useState([{key: 1, pl: 0, result: 'Player'}, {key: 2, pl: 0, result: 'Player'}]);
 
     const handleDeal = () => {            
         
@@ -57,6 +57,18 @@ const App = () => {
             }  
 
             return currentMoney;
+
+        });
+
+        // insert into history
+        // not working
+        setHistories(currentHistory => {
+
+            const _key = currentHistory.length > 0 ? (currentHistory.length - 1) + 1 : 1;
+            const _pl = _winner === USER.PLAYER ? '+' + bet : '-' + bet;
+            const _result = result;
+            
+            return currentHistory.push({key: _key, pl: _pl, result: _result});
 
         });
 
@@ -146,20 +158,6 @@ const App = () => {
         setResult('');
         setIsPlayerStood(true);
         setIsPlayerStood(true);
-    }
-
-    const listHistories = () => {
-
-        return histories.map(h => {
-                            
-            return (
-                <tr>  
-                    <td>{h.number}</td>
-                    <td>{h.pl}</td>
-                    <td>{h.result}</td>
-                </tr>
-            )                        
-        })
     }
 
     return (
