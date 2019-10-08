@@ -33,7 +33,7 @@ const App = () => {
 
         const _isPlayerStood = isPlayerStood(getCardTotal(_newPlayerCards[0], _newPlayerCards[1]));
 
-        const _bankerTotal = getCardTotalBanker(_newBankerCards[0], _newBankerCards[1], _newBankerCards[2], _isPlayerStood);
+        const _bankerTotal = getCardTotalBanker(_newBankerCards[0], _newBankerCards[1], _newBankerCards[2], _isPlayerStood, _newPlayerCards[2]);
 
         setPlayerTotal(_playerTotal);
         setBankerTotal(_bankerTotal);
@@ -89,18 +89,43 @@ const App = () => {
         return total;
     }
 
-    const getCardTotalBanker = (card1, card2, card3, isPlayerStood) => {
+    const getCardTotalBanker = (card1, card2, card3, isPlayerStood, pCard3 ) => {
 
         let total = getCardTotal(card1, card2);
 
-        console.log({isPlayerStood});
-
         if (isPlayerStood) {
-            // implement rules as the player
             if (!isBankerStood(total)) {
                 setIsBankerStood(false);
                 total = getCardTotal(total, card3);
             }
+        } else {
+            
+            if (total <= 2) {
+                total = getCardTotal(total, card3);
+            } else if (total === 3) {
+                if (pCard3 !== 8) {
+                    total = getCardTotal(total, card3);
+                }
+            } else if (total === 4) {
+                const arr = [2, 3, 4, 5, 6, 7];
+                if (arr.includes(pCard3)) {
+                    total = getCardTotal(total, card3);
+                }
+            } else if (total === 5) {
+                const arr = [4, 5, 6, 7];
+                if (arr.includes(pCard3)) {
+                    total = getCardTotal(total, card3);
+                }
+            } else if (total === 6) {
+                const arr = [6, 7];
+                if (arr.includes(pCard3)) {
+                    total = getCardTotal(total, card3);
+                }
+            } else if (total === 7) {
+                total = total;
+            } else {
+                total = total
+            }                                               
         }
 
         return total;
