@@ -9,8 +9,8 @@ const App = () => {
     const [money, setMoney] = useState(2000);
     const [bet, setBet] = useState(0);
     const [betType, setBetType] = useState(0);
-    const [playerCards, setPlayerCards] = useState([0,0,0]);
-    const [bankerCards, setBankerCards] = useState([0,0,0]);
+    const [playerCards, setPlayerCards] = useState([{ value: 0, number: 0, suite: 0},{ value: 0, number: 0, suite: 0},{ value: 0, number: 0, suite: 0}]);
+    const [bankerCards, setBankerCards] = useState([{ value: 0, number: 0, suite: 0},{ value: 0, number: 0, suite: 0},{ value: 0, number: 0, suite: 0}]);
     const [playerTotal, setPlayerTotal] = useState(0);
     const [bankerTotal, setBankerTotal] = useState(0);
     const [winner, setWinner] = useState('');
@@ -79,11 +79,11 @@ const App = () => {
 
     const getCardTotalPlayer = (card1, card2, card3) => {
 
-        let total = getCardTotal(card1, card2);
+        let total = getCardTotal(card1.value, card2.value);
 
         if (!isPlayerStood(total)) {
             setIsPlayerStood(false);
-            total = getCardTotal(total, card3);
+            total = getCardTotal(total, card3.value);
         }
 
         return total;
@@ -91,35 +91,36 @@ const App = () => {
 
     const getCardTotalBanker = (card1, card2, card3, isPlayerStood, pCard3 ) => {
 
-        let total = getCardTotal(card1, card2);
+        let total = getCardTotal(card1.value, card2.value);
 
         if (isPlayerStood) {
             if (!isBankerStood(total)) {
                 setIsBankerStood(false);
-                total = getCardTotal(total, card3);
+                total = getCardTotal(total, card3.value);
             }
         } else {
             
             if (total <= 2) {
-                total = getCardTotal(total, card3);
+                total = getCardTotal(total, card3.value);
             } else if (total === 3) {
-                if (pCard3 !== 8) {
-                    total = getCardTotal(total, card3);
+                const arr = [1, 2, 3, 4, 5, 6, 7, 9, 0];
+                if (arr.includes(pcard3.value)) {
+                    total = getCardTotal(total, card3.value);
                 }
             } else if (total === 4) {
                 const arr = [2, 3, 4, 5, 6, 7];
-                if (arr.includes(pCard3)) {
-                    total = getCardTotal(total, card3);
+                if (arr.includes(pCard3.value)) {
+                    total = getCardTotal(total, card3.value);
                 }
             } else if (total === 5) {
                 const arr = [4, 5, 6, 7];
-                if (arr.includes(pCard3)) {
-                    total = getCardTotal(total, card3);
+                if (arr.includes(pCard3.value)) {
+                    total = getCardTotal(total, card3.value);
                 }
             } else if (total === 6) {
                 const arr = [6, 7];
-                if (arr.includes(pCard3)) {
-                    total = getCardTotal(total, card3);
+                if (arr.includes(pCard3.value)) {
+                    total = getCardTotal(total, card3.value);
                 }
             } else if (total === 7) {
                 total = total;
@@ -135,8 +136,8 @@ const App = () => {
         setBet(0);
         setMoney(2000);
         setBetType(0);
-        setPlayerCards([0, 0, 0]);
-        setBankerCards([0, 0, 0]);
+        setPlayerCards([{ value: 0, number: 0, suite: 0},{ value: 0, number: 0, suite: 0},{ value: 0, number: 0, suite: 0}]);
+        setBankerCards([{ value: 0, number: 0, suite: 0},{ value: 0, number: 0, suite: 0},{ value: 0, number: 0, suite: 0}]);
         setPlayerTotal(0);
         setBankerTotal(0);
         setWinner('');

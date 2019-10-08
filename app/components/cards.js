@@ -8,15 +8,15 @@ const Cards = (props) => {
                 <b>Total:</b> { props.total } <br></br>    
             </div>     
             <div className="card">
-                {props.cards[0]}
+                {props.cards[0].value}
             </div>
             <div className="card">
-                {props.cards[1]}
+                {props.cards[1].value}
             </div>
             { 
                 !props.isStood ? 
                   <div className="card">
-                    {props.cards[2]} <span> Draw third Card! </span>
+                    {props.cards[2].value} <span> Draw third Card! </span>
                   </div> : null
             }    
         </div>

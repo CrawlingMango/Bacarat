@@ -20,12 +20,16 @@ export const getBetTypeDisplay = (betType) => {
 }
 
 export const randomCard = () => {
-    return randomNumber();
+    return { 
+        value: randomNumber(),
+        number: 0,
+        suite: 0
+    };
 }
 
-export const getCardTotal = (card1, card2) => {
+export const getCardTotal = (cardVal1, cardVal2) => {
  
-    var total = card1 + card2;
+    var total = cardVal1 + cardVal2;
 
     if (total > 10) {
         total = total - 10;
