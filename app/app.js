@@ -17,6 +17,7 @@ const App = () => {
     const [result, setResult] = useState('');
     const [playerStood, setIsPlayerStood] = useState(true);
     const [bankerStood, setIsBankerStood] = useState(true);
+    const [history, setHistory] = useState([{number: 0, pl: 0, result: ''}, {number: 0, pl: 0, result: ''}]);
 
     const handleDeal = () => {            
         
@@ -166,11 +167,11 @@ const App = () => {
             </div>
             <br></br>
             <div className="bet-type">
-                <input type="radio" onChange={(e) => handleOnSelectBetType(e)} id="player-pair" name="bet" value="1"></input> <label htmlFor="player-pair">Player Pair</label><br></br>
+                {/* <input type="radio" onChange={(e) => handleOnSelectBetType(e)} id="player-pair" name="bet" value="1"></input> <label htmlFor="player-pair">Player Pair</label><br></br> */}
                 <input type="radio" onChange={(e) => handleOnSelectBetType(e)} id="player" name="bet" value="2"></input> <label htmlFor="player">Player</label><br></br>
                 <input type="radio" onChange={(e) => handleOnSelectBetType(e)} id="tie" name="bet" value="3"></input> <label htmlFor="tie">Tie</label><br></br>
                 <input type="radio" onChange={(e) => handleOnSelectBetType(e)} id="banker" name="bet" value="4"></input> <label htmlFor="banker">Banker</label><br></br>
-                <input type="radio" onChange={(e) => handleOnSelectBetType(e)} id="banker-pair" name="bet" value="5"></input> <label htmlFor="banker-pair">Banker Pair</label><br></br>                     
+                {/* <input type="radio" onChange={(e) => handleOnSelectBetType(e)} id="banker-pair" name="bet" value="5"></input> <label htmlFor="banker-pair">Banker Pair</label><br></br>                      */}
             </div>
             <br></br>
             <div className="bet-amount">
@@ -187,6 +188,30 @@ const App = () => {
                 <button className="btn-reset" onClick={handleReset} type="button">Reset</button>
                 <button className="btn-clear-bet" onClick={handleClearBet} type="button">Clear Bet</button>
                 <button className="btn-place-bet" onClick={handleDeal} type="button">Deal!</button>
+            </div>
+            <div className="history">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>P/L</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                +10
+                            </td>
+                            <td>
+                                Player
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     )

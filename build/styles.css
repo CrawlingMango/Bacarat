@@ -3,3 +3,16 @@ button {
 
 .points {
   margin: 13px 0px; }
+
+.history {
+  max-width: 25%; }
+  .history table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%; }
+  .history td, .history th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px; }
+  .history tr:nth-child(even) {
+    background-color: #dddddd; }
