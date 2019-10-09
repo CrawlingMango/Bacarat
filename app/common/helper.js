@@ -113,7 +113,7 @@ export const isPlayerCloserToNine = (playerTotal, bankerTotal) => {
     return false;
 }
 
-export const getResult = (playerTotal, bankerTotal) => {    
+export const getResult = (playerTotal, bankerTotal, pCards, bCards, pIsStood, bIsStood) => {    
     
     const result = [];
     
@@ -126,6 +126,10 @@ export const getResult = (playerTotal, bankerTotal) => {
     }
 
     return result;
+}
+
+export const hasPair = (cards) => {
+    return false;
 }
 
 export const getWinner = (result, betType) => {

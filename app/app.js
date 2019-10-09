@@ -45,7 +45,7 @@ const App = () => {
         setIsPlayerStood(_isPlayerStood);
         setIsBankerStood(_isBankerStood);
 
-        const _result = getResult(_playerTotal, _bankerTotal);
+        const _result = getResult(_playerTotal, _bankerTotal, _newPlayerCards, _newBankerCards, _isPlayerStood, _isBankerStood);
         const _winner = getWinner(_result, betType);
 
         setResult(_result);
