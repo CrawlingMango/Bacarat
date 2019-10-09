@@ -7,12 +7,40 @@ button {
 }
 
 .cards {
-  height: 300px;
+  height: 550px;
+}
+
+.card {
+  border: solid;
+  margin: 3px;
+  width: 120px;
+  padding: 12px;
 }
 
 .mt-5 {
   margin-top: 13px;
   margin-bottom: 13px;
+}
+
+.winner {
+
+  width: 200px;
+
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th {
+    background-color: #948a8a;
+  }
+  
+  td, th {
+    border: 1px solid #848484;
+    text-align: left;
+    padding: 8px;
+  }
 }
 
 .history {

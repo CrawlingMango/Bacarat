@@ -144,12 +144,22 @@ const App = () => {
                 <Cards title={'Banker'} cards={bankerCards} total={bankerTotal} isStood={bankerStood}/>
             </div>
             <div className="winner">
-                <p>
+                {/* <p>
                     <b>Result:</b> <span> {result} </span>
                 </p>
                 <p>
                     <b>Winner:</b> <span> {winner} </span>
-                </p> 
+                </p>  */}
+                <table>
+                    <tr>
+                        <td><b>Result:</b></td>
+                        <td>{result}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Winner:</b></td>
+                        <td>{winner}</td>
+                    </tr>
+                </table>
             </div>
             <br></br>
             <div className="bet-type">
