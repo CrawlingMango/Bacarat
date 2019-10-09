@@ -1,4 +1,4 @@
-import { BET_TYPE, USER } from './constants';
+import { BET_TYPE, USER, SUITE, NUMBER } from './constants';
 
 export const getBetTypeDisplay = (betType) => {
 
@@ -19,11 +19,67 @@ export const getBetTypeDisplay = (betType) => {
 
 }
 
+export const getSuiteDisplay = (suite) => {
+
+    switch(suite) {
+        case 1:
+            return SUITE.HEART
+        case 2:
+            return SUITE.DIAMOND
+        case 3:
+            return SUITE.SPADE
+        case 4:
+            return SUITE.CLUB
+    }
+
+}
+
+export const getNumberDisplay = (number) => {
+
+    switch(number) {
+        case 1:
+            return NUMBER.ACE;
+        case 2:
+            return NUMBER.TWO;
+        case 3:
+            return NUMBER.THREE;
+        case 4:
+            return NUMBER.FOUR;
+        case 5:
+            return NUMBER.FIVE;
+        case 6:
+            return NUMBER.SIX;
+        case 7:
+            return NUMBER.SEVEN;
+        case 8:
+            return NUMBER.EIGHT;
+        case 9:
+            return NUMBER.NINE;
+        case 10:
+            return NUMBER.TEN;
+        case 11:
+            return NUMBER.JACK;
+        case 12:
+            return NUMBER.QUEEN;
+        case 13:
+            return NUMBER.KING;               
+    }
+}
+
 export const randomCard = () => {
+
+    const arrSuite = [1, 2, 3, 4];
+    const arrNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+
+    const _suite = arrSuite[Math.floor(Math.random() * arrSuite.length)];
+    const _number = arrNumber[Math.floor(Math.random() * 13)];  
+
+    const _value = _number >= 10 ? 0 : _number;
+
     return { 
-        value: randomNumber(),
-        number: 0,
-        suite: 0
+        value: _value,
+        number: _number,
+        suite: _suite
     };
 }
 
@@ -42,6 +98,9 @@ export const getCardTotal = (cardVal1, cardVal2) => {
     return total;
 }
 
+/**
+ * returns false if player and banker total is equal
+ */
 export const isPlayerCloserToNine = (playerTotal, bankerTotal) => {
 
     const _playerTotal = Math.abs(playerTotal - 9);
