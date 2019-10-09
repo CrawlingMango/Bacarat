@@ -144,12 +144,6 @@ const App = () => {
                 <Cards title={'Banker'} cards={bankerCards} total={bankerTotal} isStood={bankerStood}/>
             </div>
             <div className="winner">
-                {/* <p>
-                    <b>Result:</b> <span> {result} </span>
-                </p>
-                <p>
-                    <b>Winner:</b> <span> {winner} </span>
-                </p>  */}
                 <table>
                     <tr>
                         <td><b>Result:</b></td>

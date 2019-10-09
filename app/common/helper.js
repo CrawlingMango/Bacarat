@@ -114,13 +114,18 @@ export const isPlayerCloserToNine = (playerTotal, bankerTotal) => {
 }
 
 export const getResult = (playerTotal, bankerTotal) => {    
+    
+    const result = [];
+    
     if (isPlayerCloserToNine(playerTotal, bankerTotal)) {
-        return [BET_TYPE.PLAYER];
+        result.push(BET_TYPE.PLAYER);
     } else if (playerTotal === bankerTotal) {
-        return [BET_TYPE.TIE];
+        result.push(BET_TYPE.TIE);
     } else {
-        return [BET_TYPE.BANKER];
+        result.push(BET_TYPE.BANKER);
     }
+
+    return result;
 }
 
 export const getWinner = (result, betType) => {
