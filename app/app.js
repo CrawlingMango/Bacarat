@@ -15,7 +15,7 @@ const App = () => {
     const [playerTotal, setPlayerTotal] = useState(0);
     const [bankerTotal, setBankerTotal] = useState(0);
     const [winner, setWinner] = useState('');
-    const [result, setResult] = useState('');
+    const [result, setResult] = useState([]);
     const [playerStood, setIsPlayerStood] = useState(true);
     const [bankerStood, setIsBankerStood] = useState(true);
     const [histories, setHistories] = useState([]);
@@ -70,7 +70,7 @@ const App = () => {
 
             const _key = currentHistory.length > 0 ? currentHistory.length + 1 : 1;
             const _pl = _winner === USER.PLAYER ? '+' + bet : '-' + bet;
-            const _resultDisplay = _result;
+            const _resultDisplay = _result[0];
 
             const newHistory = {key: _key, pl: _pl, result: _resultDisplay};
             const newHistories = [...currentHistory, newHistory];

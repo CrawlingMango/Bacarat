@@ -99,39 +99,39 @@ describe('#getResult()', () => {
     it ('result should be player', () => {
 
         // arrange
-        const expectedResult = BET_TYPE.PLAYER;
+        const expectedResult = [BET_TYPE.PLAYER];
 
         // act
         const result = getResult(9, 1)
         
         // assert
-        expect(result).toBe(expectedResult);
+        expect(result[0]).toBe(expectedResult[0]);
 
     });
 
     it ('result should be tie', () => {
 
         // arrange
-        const expectedResult = BET_TYPE.TIE;
+        const expectedResult = [BET_TYPE.TIE];
 
         // act
         const result = getResult(9, 9)
         
         // assert
-        expect(result).toBe(expectedResult);
+        expect(result[0]).toBe(expectedResult[0]);
 
     });
 
     it ('result should be banker', () => {
 
         // arrange
-        const expectedResult = BET_TYPE.BANKER;
+        const expectedResult = [BET_TYPE.BANKER];
 
         // act
         const result = getResult(1, 9)
         
         // assert
-        expect(result).toBe(expectedResult);
+        expect(result[0]).toBe(expectedResult[0]);
 
     });
 
@@ -145,7 +145,7 @@ describe('#getWinner()', () => {
         const expectedResult = USER.PLAYER;
 
         // act
-        const result = getWinner(BET_TYPE.PLAYER, BET_TYPE.PLAYER);
+        const result = getWinner([BET_TYPE.PLAYER], BET_TYPE.PLAYER);
         
         // assert
         expect(result).toBe(expectedResult);
