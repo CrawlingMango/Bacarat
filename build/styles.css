@@ -4,6 +4,13 @@ button {
 .points {
   margin: 13px 0px; }
 
+.cards {
+  height: 250px; }
+
+.mt-5 {
+  margin-top: 13px;
+  margin-bottom: 13px; }
+
 .history {
   max-width: 25%;
   margin: 16px 0px; }
@@ -11,8 +18,10 @@ button {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%; }
+  .history th {
+    background-color: #948a8a; }
   .history td, .history th {
-    border: 1px solid #dddddd;
+    border: 1px solid #848484;
     text-align: left;
     padding: 8px; }
   .history tr:nth-child(even) {

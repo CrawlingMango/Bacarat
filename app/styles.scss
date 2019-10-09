@@ -6,6 +6,15 @@ button {
     margin: 13px 0px;
 }
 
+.cards {
+  height: 250px;
+}
+
+.mt-5 {
+  margin-top: 13px;
+  margin-bottom: 13px;
+}
+
 .history {
     
     max-width: 25%;
@@ -16,9 +25,13 @@ button {
         border-collapse: collapse;
         width: 100%;
       }
+
+      th {
+        background-color: #948a8a;
+      }
       
       td, th {
-        border: 1px solid #dddddd;
+        border: 1px solid #848484;
         text-align: left;
         padding: 8px;
       }

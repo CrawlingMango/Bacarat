@@ -18,7 +18,7 @@ const App = () => {
     const [result, setResult] = useState('');
     const [playerStood, setIsPlayerStood] = useState(true);
     const [bankerStood, setIsBankerStood] = useState(true);
-    const [histories, setHistories] = useState([{key: 1, pl: 0, result: 'Player'}, {key: 2, pl: 0, result: 'Player'}]);
+    const [histories, setHistories] = useState([]);
 
     const handleDeal = () => {            
         
@@ -66,16 +66,18 @@ const App = () => {
         });
 
         // insert into history
-        // not working
-        // setHistories(currentHistory => {
+        setHistories(currentHistory => {
 
-        //     const _key = currentHistory.length > 0 ? (currentHistory.length - 1) + 1 : 1;
-        //     const _pl = _winner === USER.PLAYER ? '+' + bet : '-' + bet;
-        //     const _result = result;
-            
-        //     return currentHistory.push({key: _key, pl: _pl, result: _result});
+            const _key = currentHistory.length > 0 ? currentHistory.length + 1 : 1;
+            const _pl = _winner === USER.PLAYER ? '+' + bet : '-' + bet;
+            const _resultDisplay = _result;
 
-        // });
+            const newHistory = {key: _key, pl: _pl, result: _resultDisplay};
+            const newHistories = [...currentHistory, newHistory];
+
+            return newHistories;
+
+        });
 
     };
 
@@ -141,13 +143,12 @@ const App = () => {
                 <Cards title={'Player'} cards={playerCards} total={playerTotal} isStood={playerStood}/>
                 <Cards title={'Banker'} cards={bankerCards} total={bankerTotal} isStood={bankerStood}/>
             </div>
-            <br></br>
             <div className="winner">
                 <p>
-                    <b>Result:</b> <span> {result}</span>
+                    <b>Result:</b> <span> {result} </span>
                 </p>
                 <p>
-                    <b>Winner:</b> <span> {winner}</span>
+                    <b>Winner:</b> <span> {winner} </span>
                 </p> 
             </div>
             <br></br>

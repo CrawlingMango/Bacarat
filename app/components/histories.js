@@ -4,7 +4,7 @@ const Histories = (props) => {
 
     const listHistories = () => {
 
-        return props.histories.map(h => {
+        return Array.from(props.histories).map(h => {
                             
             return (
                 <tr key={h.key}>  

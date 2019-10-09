@@ -15,7 +15,7 @@ const Cards = (props) => {
             </div>
             { 
                 !props.isStood ? 
-                  <div className="card">
+                  <div className="card mt-5">
                     {props.cards[2].value} <span> Draw third Card! </span>
                   </div> : null
             }    
