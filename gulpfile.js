@@ -9,7 +9,6 @@ var watchify = require('watchify');
 var pathmodify = require('pathmodify');
 var uglify = require('gulp-uglify');
 var babelify = require('babelify');
-var jasmine = require('gulp-jasmine');
 
 var BUILD_DIR = 'build/';
 
@@ -98,11 +97,3 @@ gulp.watch('watch', gulp.series('webserver', 'watch:js', 'watch:html'));
  * url: localhost:8000
  */
 gulp.task('serve', gulp.series('build', 'webserver'));
-
-/**
- * runs all the spec file under the tests folder
- */
-gulp.task('test', function() {
-  return gulp.src('tests/**.js')
-    .pipe(jasmine());
-});
