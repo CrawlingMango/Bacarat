@@ -49,6 +49,8 @@
     "watchify": "^3.11.1"
   },
   "scripts": {
+    "start": "gulp serve" ,
+    "build": "gulp build",
     "test": "babel-node spec/run.js"
   },
   "author": "",
