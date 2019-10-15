@@ -19,8 +19,8 @@ const App = () => {
         const playerCards = game.player.cards;
         const bankerCards = game.banker.cards;
 
-        const winner = game.winner();
-        const result = game.result();
+        const winner = game.winner;
+        const result = game.result;
 
         if (winner == USER.PLAYER) {
             player.increaseMoney(player.bet);

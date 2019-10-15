@@ -1,3 +1,5 @@
+import { Card } from "./bacarat";
+
 export class Banker {
 
     constructor() {

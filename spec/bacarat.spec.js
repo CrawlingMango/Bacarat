@@ -1,5 +1,7 @@
 import { Bacarat, Card } from '../app/models/bacarat';
 import { BET_TYPE } from '../app/common/constants';
+import { Player } from '../app/models/player';
+import { Banker } from '../app/models/banker';
 
 describe('#calculateCardTotal', () => {
 
@@ -255,4 +257,58 @@ describe('#Card', () => {
 
     });
 
-})
+});
+
+describe('#deal', () => {
+
+    it ('after deal, player and banker should have some cards', () => {
+
+        // arrange
+        const player = new Player(2000);
+        const banker = new Banker();
+
+        const game = new Bacarat(player, banker);
+
+        // act
+        game.deal();
+
+        // assert
+        expect(game.banker.cards.length).toBeGreaterThan(0);
+        expect(game.player.cards.length).toBeGreaterThan(0);
+    });
+
+    it ('after deal, winner should not be empty', () => {
+
+        // arrange
+        const player = new Player(2000);
+        const banker = new Banker();
+
+        const game = new Bacarat(player, banker);
+
+        // act
+        game.deal();
+
+        const result = game.winner;
+
+        // assert
+        expect(result).not.toEqual('');
+    });
+
+    it ('after deal, result should not be empty', () => {
+
+        // arrange
+        const player = new Player(2000);
+        const banker = new Banker();
+
+        const game = new Bacarat(player, banker);
+
+        // act
+        game.deal();
+
+        const result = game.result;
+
+        // assert
+        expect(result).not.toEqual([]);
+    });
+
+});
