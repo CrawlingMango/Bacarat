@@ -14,12 +14,17 @@ button {
   border: solid;
   margin: 3px;
   width: 120px;
+  height: 50px;
   padding: 12px;
 }
 
 .mt-5 {
   margin-top: 13px;
   margin-bottom: 13px;
+}
+
+.my-5 {
+  margin: 13px 0px;
 }
 
 .winner {
@@ -40,6 +45,16 @@ button {
     border: 1px solid #848484;
     text-align: left;
     padding: 8px;
+  }
+}
+
+.card-table {
+  .player {
+    display: flex;
+  }
+
+  .banker {
+    display: flex;
   }
 }
 

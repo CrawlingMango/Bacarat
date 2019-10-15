@@ -163,6 +163,40 @@ describe('#getResult', () => {
 
     });
 
+    it ('player equals banker, player has pair, result equals tie and player pair', () => {
+
+        // arrange
+        const pCards = [new Card(1, 7,), new Card(1, 7)];
+        const bCards = [new Card(1, 4,), new Card(1, 10)];
+        const game = new Bacarat();
+        
+        const expectedResult = [BET_TYPE.TIE, BET_TYPE.PLAYER_PAIR];
+
+        // act
+        const result = game.getResult(pCards, bCards);
+
+        // assert
+        expect(result).toEqual(expectedResult);
+
+    });
+
+    it ('player equals banker, banker has pair, result equals tie and banker pair', () => {
+
+        // arrange
+        const pCards = [new Card(1, 4,), new Card(1, 10)];
+        const bCards = [new Card(1, 7,), new Card(1, 7)];
+        const game = new Bacarat();
+        
+        const expectedResult = [BET_TYPE.TIE, BET_TYPE.BANKER_PAIR];
+
+        // act
+        const result = game.getResult(pCards, bCards);
+
+        // assert
+        expect(result).toEqual(expectedResult);
+
+    });
+
 });
 
 describe('#getWinner', () => {
@@ -200,30 +234,6 @@ describe('#getWinner', () => {
         expect(_result).toBe(expectedResult);
 
     })
-
-});
-
-describe('#doesCardsHavePair', () => {
-
-    it ('cards have pair it should return true', () => {
-
-        // arrange
-
-        // act
-
-        // assert
-
-    });
-
-    it ('card dont have pair it should return false', () => {
-        
-        // arrange
-
-        // act
-
-        // assert
-
-    });
 
 });
 
@@ -270,7 +280,7 @@ describe('#deal', () => {
         const game = new Bacarat(player, banker);
 
         // act
-        game.deal();
+        game.start();
 
         // assert
         expect(game.banker.cards.length).toBeGreaterThan(0);
@@ -286,7 +296,7 @@ describe('#deal', () => {
         const game = new Bacarat(player, banker);
 
         // act
-        game.deal();
+        game.start();
 
         const result = game.winner;
 
@@ -303,12 +313,42 @@ describe('#deal', () => {
         const game = new Bacarat(player, banker);
 
         // act
-        game.deal();
+        game.start();
 
         const result = game.result;
 
         // assert
         expect(result).not.toEqual([]);
+    });
+
+});
+
+describe('#doesCardsHavePair', () => {
+
+    it ('cards have pairs, return true', () => {
+
+        // arrange
+        const game = new Bacarat();
+
+        // act
+        const result = game.doesCardsHavePair([{ value: 0, number: 1, suite: 0},{ value: 0, number: 1, suite: 0},{ value: 0, number: 0, suite: 0}]);
+        
+        // assert
+        expect(result).toBeTruthy();
+
+    });
+
+    it ('cards does not have pairs, return false', () => {
+
+        // arrange
+        const game = new Bacarat();
+
+        // act
+        const result = game.doesCardsHavePair([{ value: 0, number: 1, suite: 0},{ value: 0, number: 2, suite: 0},{ value: 0, number: 3, suite: 0}]);
+        
+        // assert
+        expect(result).toBeFalsy();
+
     });
 
 });

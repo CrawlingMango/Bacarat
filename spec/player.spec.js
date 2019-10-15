@@ -76,6 +76,24 @@ describe('#Player', () => {
 
     });
 
+    it ('player increase money two times, should increase money', () => {
+
+        // arrange
+        const player = new Player(2000);
+        const expectedResult = 3000;
+
+        // act
+
+        player.increaseMoney(500);
+        player.increaseMoney(500);
+
+        const result = player.money;
+        
+        // assert
+        expect(result).toEqual(expectedResult);
+
+    });
+
     it ('player should decrease money', () => {
 
         // arrange

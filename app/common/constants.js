@@ -1,3 +1,5 @@
+import { Card } from "../models/bacarat"
+
 export const BET_TYPE = {
     PLAYER_PAIR: 'Player Pair',
     PLAYER: 'Player',

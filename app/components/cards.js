@@ -4,23 +4,26 @@ import { getSuiteDisplay, getNumberDisplay } from '../common/helper';
 const Cards = (props) => {
     return (
         <div>
-            <div className="points">
-                <b>{props.title} Cards</b> <br></br>
-                <b>Total:</b> { props.total } <br></br>    
-            </div>     
-            <div className="card">
-                <b>{props.cards[0].value}</b> |  { getNumberDisplay(props.cards[0].number)} of  { getSuiteDisplay(props.cards[0].suite)}
+            <h3>Player:<span>{props.playerCardsTotal}</span></h3>
+            <div className="player my-5">
+                <div className="card"><b>{props.playerCards[0].value}</b> |  { getNumberDisplay(props.playerCards[0].number)} of  { getSuiteDisplay(props.playerCards[0].suite)}</div>
+                <div className="card"><b>{props.playerCards[1].value}</b> |  { getNumberDisplay(props.playerCards[1].number)} of  { getSuiteDisplay(props.playerCards[1].suite)}</div>
+                {
+                    props.playerCards.length > 2 ?
+                    <div className="card"><b>{props.playerCards[2].value}</b> |  { getNumberDisplay(props.playerCards[2].number)} of  { getSuiteDisplay(props.playerCards[2].suite)}</div>
+                    : null
+                }
             </div>
-            <div className="card">
-                <b>{props.cards[1].value}</b> | {getNumberDisplay(props.cards[1].number)} of  { getSuiteDisplay(props.cards[1].suite)} 
+            <h3>Banker:<span>{props.bankerCardsTotal}</span></h3>
+            <div className="banker my-5">
+                <div className="card"><b>{props.bankerCards[0].value}</b> |  { getNumberDisplay(props.bankerCards[0].number)} of  { getSuiteDisplay(props.bankerCards[0].suite)}</div>
+                <div className="card"><b>{props.bankerCards[1].value}</b> |  { getNumberDisplay(props.bankerCards[1].number)} of  { getSuiteDisplay(props.bankerCards[1].suite)}</div>
+                {
+                    props.bankerCards.length > 2 ?
+                    <div className="card"><b>{props.bankerCards[2].value}</b> |  { getNumberDisplay(props.bankerCards[2].number)} of  { getSuiteDisplay(props.bankerCards[2].suite)}</div>
+                    : null
+                }
             </div>
-            { 
-                !props.isStood ? 
-                  <div className="card mt-5">
-                    Draw <b>third</b> Card! <br></br>
-                    <b>{props.cards[2].value}</b> | {getNumberDisplay(props.cards[2].number)} of  { getSuiteDisplay(props.cards[2].suite)}
-                  </div> : null
-            }    
         </div>
     )
 }
