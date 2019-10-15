@@ -7,6 +7,22 @@ export class Bacarat {
         this._banker = banker;
     }
 
+    get player() {
+        return this._player;
+    }
+
+    get banker() {
+        return this._banker;
+    }
+
+    get winner () {
+        return this.getWinner(this.result, this._player.selectedResult);
+    }
+
+    get result () {
+        return this.getResult(this._player.cards, this._banker.cards);
+    }
+
     deal() {
 
         // draw card for player
@@ -50,43 +66,48 @@ export class Bacarat {
         }
     }
 
-    get winner () {
-        // return player or banker
-        if (this.result.includes(this._player.selectedResult)) {
+    // helper methods
+
+    getWinner (result, selectedResult) {
+
+        if (result.includes(selectedResult)) {
             return USER.PLAYER;
         } else {
             return USER.BANKER;
         }
+
     }
 
-    get result () {
-        
-        // return tie, banker, player
+    getResult (pCards, bCards) {
 
         const result = [];
 
-        const playerTotal = this.calculateCardTotal(this._player.cards);
-        const bankerTotal = this.calculateCardTotal(this._banker.cards);
+        const playerTotal = this.calculateCardTotal(pCards);
+        const bankerTotal = this.calculateCardTotal(bCards);
+
+        const _playerDistanceFromNine = Math.abs(playerTotal - 9);
+        const _bankerDistanceFromNine = Math.abs(bankerTotal - 9);
 
         // if player closer to 9
-        result.push(BET_TYPE.PLAYER);
+        if (_playerDistanceFromNine < _bankerDistanceFromNine) {
+            result.push(BET_TYPE.PLAYER);
+        } else if (_playerDistanceFromNine > _bankerDistanceFromNine) {
+            result.push(BET_TYPE.BANKER);
+        } else {
+            result.push(BET_TYPE.TIE);
+        }
 
-        // if player < banker total
-        result.push(BET_TYPE.BANKER);
-
-        // if player == banker total
-        result.push(BET_TYPE.TIE);
+        if (this.doesCardsHavePair(pCards)) {
+            result.push(BET_TYPE.PLAYER_PAIR);
+        }
         
-        // if player have pair
-        result.push(BET_TYPE.PLAYER_PAIR);
-
-        // if banker have pair
-        result.push(BET_TYPE.BANKER_PAIR);
+        if (this.doesCardsHavePair(bCards)) {
+            result.push(BET_TYPE.BANKER_PAIR);
+        }
 
         return result;
-    }
 
-    // private methods
+    }
 
     isStood(card1, card2) {
         const cardTotal = this.calculateCardTotal([card1, card2]);
@@ -157,6 +178,7 @@ export class Bacarat {
 
     doesCardsHavePair(cards) {
         // return true or false
+        return false;
     }
         
 }

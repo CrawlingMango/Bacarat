@@ -12,10 +12,6 @@ export class Banker {
         this._cards.push(card);
     }
 
-    removeAllCards() {
-        this._cards = [];
-    }
-
     drawCard () {
 
         const arrSuite = [1, 2, 3, 4];

@@ -1,7 +1,7 @@
-import { Card } from "../app/models/bacarat";
-import { Player } from "../app/models/player";
+import { Card } from '../app/models/bacarat';
+import { Player } from '../app/models/player';
 
-fdescribe('Player', () => {
+describe('#Player', () => {
 
     it ('player should initially have zero (0) bet', () => {
 
@@ -109,5 +109,4 @@ fdescribe('Player', () => {
         expect(result.length).toEqual(expectedResult);
 
     });
-
 });

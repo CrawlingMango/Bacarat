@@ -46,9 +46,4 @@ export class Player {
     addCard(card) {
         this._cards.push(card);
     }
-
-    removeAllCards() {
-        this._cards = [];
-    }
-
 }

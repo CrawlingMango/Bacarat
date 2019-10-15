@@ -1,6 +1,7 @@
 import React from 'react';
 import { Player } from './models/player';
 import { Banker } from './models/banker';
+import { USER } from './common/constants';
 
 const App = () => {    
 
@@ -15,10 +16,13 @@ const App = () => {
 
         game.deal();
 
+        const playerCards = game.player.cards;
+        const bankerCards = game.banker.cards;
+
         const winner = game.winner();
         const result = game.result();
 
-        if (winner == 'player') {
+        if (winner == USER.PLAYER) {
             player.increaseMoney(player.bet);
         } else {
             player.decreaseMoney(player.bet);
