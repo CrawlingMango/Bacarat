@@ -268,7 +268,6 @@ export class Shoe {
     }
 
     shuffle() {
-        // shuffles the cards
         this._deck = this.shuffleArray(this._deck);
     }
 
